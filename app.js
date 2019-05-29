@@ -11,6 +11,9 @@ app.set('view engine', 'ejs');
 // DB Config
 const db = require('./config/keys').mongoURI;
 
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
+
 // Connect to MongoDB
 mongoose
   .connect(
@@ -19,7 +22,7 @@ mongoose
   )
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
-  
+
 //middleware on  static files
 app.use(express.static(__dirname + '/asserts'));
 
