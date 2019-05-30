@@ -1,0 +1,85 @@
+<% include ../partials/navbar %>
+<div class="row mt-5">
+        <div class="col-md-6 m-auto">
+          <div class="card card-body">
+            <h1 class="text-center mb-3">
+               Mark Entry
+            </h1>
+            <% include ../partials/messages %>
+            <form action="/staff/dashboard/markentry" method="POST">
+              <div class="form-group">
+                <label for="rollnumber">Roll Number</label>
+                <input
+                  type="number"
+                  id="rollnumber"
+                  name="rollnumber"
+                  class="form-control"
+                  placeholder="Enter Rollnumber"
+                  value="<%= typeof rollnumber != 'undefined' ? rollnumber : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="english">English</label>
+                <input
+                  type="name"
+                  id="english"
+                  name="english"
+                  class="form-control"
+                  placeholder="Enter English Mark:"
+                  value="<%= typeof english != 'undefined' ? english : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                    <label for="tamil">Tamil</label>
+                    <input
+                      type="name"
+                      id="tamil"
+                      name="tamil"
+                      class="form-control"
+                      placeholder="Enter Tamil Mark:"
+                      value="<%= typeof tamil != 'undefined' ? tamil : '' %>"
+                    />
+                  </div>
+              <div class="form-group">
+                <label for="maths">Maths</label>
+                <input
+                  type="name"
+                  id="maths"
+                  name="maths"
+                  class="form-control"
+                  placeholder="Enter Maths Mark:"
+                  value="<%= typeof maths != 'undefined' ? maths : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                    <label for="social">Social</label>
+                    <input
+                      type="name"
+                      id="social"
+                      name="social"
+                      class="form-control"
+                      placeholder="Enter Social Mark:"
+                      value="<%= typeof social != 'undefined' ? social : '' %>"
+                    />
+                  </div>
+                  <div class="form-group">
+                        <label for="science">Science</label>
+                        <input
+                          type="name"
+                          id="science"
+                          name="science"
+                          class="form-control"
+                          placeholder="Enter Science Mark:"
+                          value="<%= typeof science != 'undefined' ? science : '' %>"
+                        />
+                  </div>
+              
+              
+              <button type="submit" class="btn btn-primary btn-block">
+                Update Marks
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
