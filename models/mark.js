@@ -5,23 +5,23 @@ const MarkSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  English: {
+  english: {
     type: Number,
     required: true
   },
-  Tamil: {
+  tamil: {
     type: Number,
     required: true
   },
-  Maths: {
+  maths: {
     type: Number,
     required: true
   },
-  Science: {
+  science: {
     type: Number,
     required: true
   },
-  Social: {
+  social: {
     type: Number,
     required: true
   }
