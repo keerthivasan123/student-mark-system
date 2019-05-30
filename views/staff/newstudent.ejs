@@ -1,0 +1,52 @@
+<% include ../partials/navbar %>
+<div class="row mt-5">
+        <div class="col-md-6 m-auto">
+          <div class="card card-body">
+            <h1 class="text-center mb-3">
+               Add New Student
+            </h1>
+            <% include ../partials/messages %>
+            <form action="/staff/dashboard/newstudent" method="POST">
+                <div class="form-group">
+                        <label for="name">Name</label>
+                        <input
+                          type="name"
+                          id="name"
+                          name="name"
+                          class="form-control"
+                          placeholder="Enter Name of the Student"
+                          value="<%= typeof name != 'undefined' ? name : '' %>"
+                        />
+                </div>
+              <div class="form-group">
+                <label for="rollnumber">Roll Number </label>
+                <input
+                  type="number"
+                  id="rollnumber"
+                  name="rollnumber"
+                  class="form-control"
+                  placeholder="Enter Roll Number  of the Student:"
+                  value="<%= typeof rollnumber != 'undefined' ? rollnumber : '' %>"
+                />
+              </div>
+              <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      class="form-control"
+                      placeholder="Create Password"
+                      value="<%= typeof password != 'undefined' ? password : '' %>"
+                    />
+                  </div>
+              
+              
+              <button type="submit" class="btn btn-primary btn-block">
+                Add Student
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      
