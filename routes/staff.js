@@ -3,14 +3,16 @@ const router = express.Router();
 const Staff = require('../models/Staff');
 const Student = require('../models/Student');
 const Mark = require('../models/Mark');
+const passport = require('passport');
+const { forwardAuthenticated } = require('../config/authforstaff');
 
 
 //homePage
-router.get('/', (req, res) => res.render('staff/homePage'));
+router.get('/',forwardAuthenticated, (req, res) => res.render('staff/homePage'));
 
 
 // register
-router.get('/register', (req, res) => res.render('staff/staffRegister'));
+router.get('/register',forwardAuthenticated, (req, res) => res.render('staff/staffRegister'));
 
 router.post('/register', (req, res) => {
     console.log(req.body);
@@ -61,7 +63,11 @@ const { name, email, password, password2, school } = req.body;
               newStaff
                 .save()
                 .then(staff => {
-                  res.redirect('/staff/dashboard');
+                  req.flash(
+                    'success_msg',
+                    'Staff Registered Successfully'
+                  );
+                  res.redirect('/staff/login');
                 })
                 .catch(err => console.log(err));
 
@@ -72,12 +78,21 @@ const { name, email, password, password2, school } = req.body;
     });
     
 
-//signin
+//login
 router.get('/login', (req, res) => res.render('staff/staffLogin'));
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/staff/dashboard',
+    failureRedirect: '/staff/login',
+    failureFlash: true
+  })(req, res, next);
+});
+
+
 //dashboard
 router.get('/dashboard', (req, res) => res.render('staff/dashboard'));
 //markentry
-router.get('/dashboard/markentry', (req, res) => res.render('staff/markentry'));
+router.get('/dashboard/markentry',forwardAuthenticated, (req, res) => res.render('staff/markentry'));
 router.post('/dashboard/markentry', (req, res) => {
     console.log(req.body);
 const { rollnumber, english , tamil,maths,social,science } = req.body;
@@ -121,6 +136,10 @@ const { rollnumber, english , tamil,maths,social,science } = req.body;
               newMark
                 .save()
                 .then(mark => {
+                  req.flash(
+                    'success_msg',
+                    'Mark of the Student is Added Successfully'
+                  );
                   res.redirect('/staff/dashboard/markentry');
                 })
                 .catch(err => console.log(err));
@@ -140,7 +159,7 @@ const { rollnumber, english , tamil,maths,social,science } = req.body;
       }
     });
 //newstudent
-router.get('/dashboard/newstudent', (req, res) => res.render('staff/newstudent'));
+router.get('/dashboard/newstudent', forwardAuthenticated, (req, res) => res.render('staff/newstudent'));
 router.post('/dashboard/newstudent', (req, res) => {
     console.log(req.body);
 const { name, rollnumber , password } = req.body;
@@ -181,6 +200,10 @@ const { name, rollnumber , password } = req.body;
               newStudent
                 .save()
                 .then(student => {
+                  req.flash(
+                    'success_msg',
+                    'New Student is Added Successfully'
+                  );
                   res.redirect('/staff/dashboard/newstudent');
                 })
                 .catch(err => console.log(err));
