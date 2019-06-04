@@ -6,10 +6,8 @@ const flash = require('connect-flash');
 const session = require('express-session');
 //setting express
 var app = express();
+const MongoDBStore = require('connect-mongodb-session')(session);
 
-// Passport Config
-require('./config/passport')(passport);
-//require('./config/passportforstudent')(passport);
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -26,6 +24,11 @@ mongoose
 //Static Files
 app.use(express.static('./asserts'));
 
+const store = new MongoDBStore({
+  uri: db,
+  collection: 'sessions'
+});
+
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -36,15 +39,14 @@ app.use(express.urlencoded({ extended: true }));
 // Express session
 app.use(
   session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
+    secret: 'my secret',
+    resave: false,
+    saveUninitialized: false,
+    store: store
   })
 );
 
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 // Connect flash
 app.use(flash());
