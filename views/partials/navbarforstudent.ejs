@@ -10,10 +10,12 @@
           <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
         </li>
         
-        <li class="nav-item right">
-          <a class="nav-link" href="/student/logout"> Logout
-          </a>
+        <li class="nav-item  nav-link">
+            <form action="/student/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
         </li>
+        
       </ul>
       <p class="my-2 my-lg-0">
           <%= name %>
