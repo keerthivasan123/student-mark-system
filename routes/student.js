@@ -4,16 +4,25 @@ const Student = require('../models/Student');
 //homePage
 router.get('/', (req, res) => res.render('student/homePage'));
 //signin
-router.get('/login', (req, res) => res.render('student/studentLogin',{
+router.get('/login', (req, res) => {
+  
+  res.render('student/studentLogin',{
   isAuthenticated: false,
   
-}));
+})
+}
+);
 //dashboard
-router.get('/dashboard', (req, res) => res.render('student/dashboard',{
+router.get('/dashboard', (req, res) =>{ 
+  if(!req.session.isLoggedIn)
+  {
+    return res.redirect('login/');
+  }
+  res.render('student/dashboard',{
   isAuthenticated: req.session.isLoggedIn,
   name : req.param.rollnumber
 })
-
+}
 );
 // Login
 router.post('/login', (req, res, next) => {
@@ -42,10 +51,11 @@ router.post('/login', (req, res, next) => {
 });
 
 // Logout
-router.get('/logout', (req, res) => {
-    req.logout();
-    req.flash('success_msg', 'You are logged out');
-    res.redirect('/users/login');
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+  console.log(err);
+  res.redirect('login/');
   });
+});
 
 module.exports = router;
